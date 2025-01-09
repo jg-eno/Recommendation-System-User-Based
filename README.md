@@ -88,7 +88,7 @@ This project implements a **Recommender System** that uses **Neural Collaborativ
 ### 1. **Train the Model and Cache Recommendations**
 Run the main script to train the model, simulate user activity, and evaluate the cache:
 ```bash
-python Cahce.py
+python3 Recommender_Cache_Replacement.py
 ```
 
 ### 2. **Fetch Recommendations for a Specific User**
