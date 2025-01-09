@@ -108,7 +108,7 @@ After running the simulation, performance metrics (e.g., cache hit rate, respons
 ## File Structure
 ```
 .
-├── Cahce.py                 # Main script for training, caching, and simulation
+├── Recommender_Cache_Replacement.py                 # Main script for training, caching, and simulation
 ├── movies.csv               # Movie metadata (input file)
 ├── ratings.csv              # User-item interactions (input file)
 ├── requirements.txt         # Dependencies
