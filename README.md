@@ -63,8 +63,8 @@ This project implements a **Recommender System** that uses **Neural Collaborativ
 ## Installation
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-repo/recommender-cache
-   cd recommender-cache
+   git clone https://github.com/jg-eno/Recommendation-System-User-Based.git
+   cd Recommendation-System-User-Based
    ```
 
 2. **Install Dependencies:**
