@@ -1,4 +1,4 @@
-# Documentation Report: Recommender System with Cache Replacement
+# Recommender System with Cache Replacement
 
 ## Overview
 This Python script implements a **recommender system** that leverages **Neural Collaborative Filtering (NCF)** and **text-based embeddings** to provide personalized movie recommendations. The system is enhanced with a **caching mechanism** that uses multiple eviction strategies (LRU, Relevance, and Hybrid) to optimize performance and ensure relevant recommendations are delivered efficiently. The code is designed to simulate user activity and evaluate the effectiveness of different caching strategies.
