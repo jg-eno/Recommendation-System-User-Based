@@ -118,6 +118,72 @@ This Python script implements a **recommender system** that leverages **Neural C
 ### 4. **FAISS for Similarity Search**
    - Efficiently searches for similar items in high-dimensional embedding spaces.
    - Used to retrieve cached recommendations based on user embeddings.
+## Cache Replacement Policy for Items with the Same Rating
+
+When the cache reaches its capacity and multiple items have the same relevance score, the system uses a **tie-breaking mechanism** to decide which item to evict. This mechanism considers several factors to ensure fair and efficient eviction decisions.
+
+---
+
+### **Tie-Breaking Factors**
+
+1. **Age Factor**: Prefers newer items. Calculated using exponential decay:
+   \[
+   \text{age\_factor} = e^{-\text{age\_hours} / 24}
+   \]
+
+2. **Diversity Factor**: Prefers items that increase cache diversity. Calculated as:
+   \[
+   \text{diversity\_factor} = 1 - \text{avg\_similarity}
+   \]
+
+3. **Stability Factor**: Prefers items evicted less frequently. Calculated as:
+   \[
+   \text{stability\_factor} = e^{-\text{eviction\_count} / 5}
+   \]
+
+4. **Popularity Trend**: Prefers items with increasing popularity. Calculated by comparing recent and older access rates.
+
+5. **Jitter**: A small random value added to prevent secondary ties.
+
+---
+
+### **Tie-Breaking Score**
+
+The final score is a weighted combination of the factors:
+\[
+\text{tie\_break\_score} = 0.3 \times \text{age\_factor} + 0.3 \times \text{diversity\_factor} + 0.2 \times \text{stability\_factor} + 0.2 \times \text{popularity\_trend} + \text{jitter}
+\]
+
+---
+
+### **Eviction Decision**
+
+1. Calculate relevance scores for all items.
+2. For items with the same relevance score, compute tie-breaking scores.
+3. Sort items by tie-breaking scores.
+4. Evict the item with the lowest score.
+
+---
+
+### **Example**
+
+- **Item A**:
+  - Age: 12 hours (age_factor = 0.61)
+  - Diversity: 0.8 (diversity_factor = 0.8)
+  - Stability: Evicted 2 times (stability_factor = 0.67)
+  - Popularity Trend: Increasing (trend = 0.7)
+
+- **Item B**:
+  - Age: 24 hours (age_factor = 0.37)
+  - Diversity: 0.6 (diversity_factor = 0.6)
+  - Stability: Evicted 1 time (stability_factor = 0.82)
+  - Popularity Trend: Decreasing (trend = 0.3)
+
+**Tie-Breaking Scores**:
+- **Item A**: \(0.3 \times 0.61 + 0.3 \times 0.8 + 0.2 \times 0.67 + 0.2 \times 0.7 + \text{jitter} = 0.69\)
+- **Item B**: \(0.3 \times 0.37 + 0.3 \times 0.6 + 0.2 \times 0.82 + 0.2 \times 0.3 + \text{jitter} = 0.51\)
+
+**Result**: **Item B** is evicted because it has a lower tie-breaking score.
 
 ---
 
