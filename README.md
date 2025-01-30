@@ -127,19 +127,19 @@ When the cache reaches its capacity and multiple items have the same relevance s
 ### **Tie-Breaking Factors**
 
 1. **Age Factor**: Prefers newer items. Calculated using exponential decay:
-   \[
-   \text{age\_factor} = e^{-\text{age\_hours} / 24}
-   \]
+   ```
+   age_factor = e^(-{age_hours} / 24)
+   ```
 
 2. **Diversity Factor**: Prefers items that increase cache diversity. Calculated as:
-   \[
-   \text{diversity\_factor} = 1 - \text{avg\_similarity}
-   \]
+   ```
+   diversity_factor = 1 - avg_similarity
+   ```
 
 3. **Stability Factor**: Prefers items evicted less frequently. Calculated as:
-   \[
-   \text{stability\_factor} = e^{-\text{eviction\_count} / 5}
-   \]
+   ```
+   stability_factor = e^{-eviction_count / 5}
+   ```
 
 4. **Popularity Trend**: Prefers items with increasing popularity. Calculated by comparing recent and older access rates.
 
@@ -150,9 +150,9 @@ When the cache reaches its capacity and multiple items have the same relevance s
 ### **Tie-Breaking Score**
 
 The final score is a weighted combination of the factors:
-\[
-\text{tie\_break\_score} = 0.3 \times \text{age\_factor} + 0.3 \times \text{diversity\_factor} + 0.2 \times \text{stability\_factor} + 0.2 \times \text{popularity\_trend} + \text{jitter}
-\]
+```
+tie_break_score = 0.3 * age_factor + 0.3 * diversity_factor + 0.2 * stability_factor + 0.2 popularity_trend + jitter
+```
 
 ---
 
